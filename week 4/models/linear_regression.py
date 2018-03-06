@@ -41,11 +41,13 @@ class LinearRegression(object):
       # Update the weights using the gradient and the learning rate.          #
       #########################################################################
       self.W -= learning_rate*grad
+      
       #########################################################################
       #                       END OF YOUR CODE                                #
       #########################################################################
 
       if verbose and it % 100 == 0:
+        print(grad)
         print('iteration %d / %d: loss %f' % (it, num_iters, loss))
 
     return loss_history

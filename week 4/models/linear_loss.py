@@ -21,7 +21,7 @@ def linear_loss_naive(W, X, y, reg):
     N, D = X.shape
     y = y.reshape((N, 1))
     W = W.reshape((D, 1))
-    if reg > 1: reg = 1/reg
+    #if reg > 1: reg = 1/reg
 
     loss = 0.0
     dW = np.zeros_like(W)
@@ -41,7 +41,7 @@ def linear_loss_naive(W, X, y, reg):
         loss += (y_pred[i] - y[i])**2
 
     loss /= 2*N
-    loss += reg*np.sum(W*W)
+    loss += 0.5*reg*np.sum(W*W)
 
     # Get gradient
     for j in range(D):
@@ -66,7 +66,7 @@ def linear_loss_vectorized(W, X, y, reg):
     N, D = X.shape
     y = y.reshape((N, 1))
     W = W.reshape((D, 1))
-    if reg > 1: reg = 1/reg
+    #if reg > 1: reg = 1/reg
 
     loss = 0.0
     dW = np.zeros_like(W)
@@ -79,8 +79,8 @@ def linear_loss_vectorized(W, X, y, reg):
     #############################################################################
     
     y_pred = np.dot(X, W)
-    loss = np.sum((y_pred - y)**2)/(2*N)
-    loss += reg*np.sum(W*W)
+    loss = np.linalg.norm(y_pred - y)**2/(2*N)
+    loss += 0.5*reg*np.sum(W*W)
     
     dW = np.dot(X.T, (y_pred - y))
     dW /= N
